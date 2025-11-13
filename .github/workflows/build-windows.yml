@@ -36,6 +36,9 @@ jobs:
         # Install Nuitka
         pip install nuitka ordered-set zstandard
         
+        # Install numpy first (required by many packages, must match version in requirements.txt)
+        pip install numpy==1.26.4
+        
         # Install PyTorch with CUDA 11.8 support (for GPU) - install first to avoid conflicts
         pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
         
@@ -43,11 +46,14 @@ jobs:
         pip install onnxruntime-gpu
         
         # Install other dependencies from requirements.txt, but skip packages that don't work on Windows
-        # Skip: torch/onnxruntime (already installed with GPU support), uvloop (doesn't support Windows)
+        # Skip: 
+        #   - torch/onnxruntime (already installed with GPU support)
+        #   - uvloop (doesn't support Windows)
+        #   - opencv-python-headless (requires numpy 2.x, conflicts with numpy 1.26.4; opencv-python is enough for Windows)
         # Create a temporary requirements file without problematic packages
         Get-Content requirements.txt | Where-Object { 
             $line = $_.Trim()
-            $line -and $line -notmatch '^torch' -and $line -notmatch '^torchvision' -and $line -notmatch '^torchaudio' -and $line -notmatch '^onnxruntime' -and $line -notmatch '^uvloop'
+            $line -and $line -notmatch '^torch' -and $line -notmatch '^torchvision' -and $line -notmatch '^torchaudio' -and $line -notmatch '^onnxruntime' -and $line -notmatch '^uvloop' -and $line -notmatch '^opencv-python-headless' -and $line -notmatch '^numpy'
         } | Out-File -FilePath requirements_temp.txt -Encoding utf8
         
         # Install remaining dependencies
