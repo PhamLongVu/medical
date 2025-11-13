@@ -42,11 +42,12 @@ jobs:
         # Install ONNX Runtime GPU - install first to avoid conflicts
         pip install onnxruntime-gpu
         
-        # Install other dependencies from requirements.txt, but skip torch/onnxruntime to avoid version conflicts
-        # Create a temporary requirements file without torch/onnxruntime
+        # Install other dependencies from requirements.txt, but skip packages that don't work on Windows
+        # Skip: torch/onnxruntime (already installed with GPU support), uvloop (doesn't support Windows)
+        # Create a temporary requirements file without problematic packages
         Get-Content requirements.txt | Where-Object { 
             $line = $_.Trim()
-            $line -and $line -notmatch '^torch' -and $line -notmatch '^torchvision' -and $line -notmatch '^torchaudio' -and $line -notmatch '^onnxruntime'
+            $line -and $line -notmatch '^torch' -and $line -notmatch '^torchvision' -and $line -notmatch '^torchaudio' -and $line -notmatch '^onnxruntime' -and $line -notmatch '^uvloop'
         } | Out-File -FilePath requirements_temp.txt -Encoding utf8
         
         # Install remaining dependencies
