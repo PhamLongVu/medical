@@ -48,11 +48,10 @@ jobs:
           exit 1
         }
 
-    - name: Build EXE with Nuitka
+    - name: Build with Nuitka (Standalone)
       run: |
         python -m nuitka `
           --standalone `
-          --onefile `
           --windows-console-mode=force `
           --assume-yes-for-downloads `
           --enable-plugin=numpy `
@@ -68,7 +67,6 @@ jobs:
           --include-data-files=data/api_keys.json=data/api_keys.json `
           --include-data-files=data/admin_vault.json=data/admin_vault.json `
           --output-dir=dist `
-          --output-filename=medical_xray_analyzer.exe `
           --show-progress `
           --show-memory `
           --report=compilation-report.xml `
@@ -78,29 +76,87 @@ jobs:
 
     - name: Verify build output
       run: |
-        if (Test-Path "dist\medical_xray_analyzer.exe") {
+        if (Test-Path "dist\run.dist") {
           Write-Host "✓ Build successful!"
-          $size = (Get-Item "dist\medical_xray_analyzer.exe").Length / 1MB
-          Write-Host "Executable size: $([math]::Round($size, 2)) MB"
+          
+          # Check main executable
+          if (Test-Path "dist\run.dist\run.exe") {
+            $size = (Get-Item "dist\run.dist\run.exe").Length / 1MB
+            Write-Host "Main executable size: $([math]::Round($size, 2)) MB"
+          }
+          
+          # Count total files
+          $fileCount = (Get-ChildItem -Path "dist\run.dist" -Recurse -File).Count
+          Write-Host "Total files in distribution: $fileCount"
+          
+          # Calculate total size
+          $totalSize = (Get-ChildItem -Path "dist\run.dist" -Recurse -File | Measure-Object -Property Length -Sum).Sum / 1MB
+          Write-Host "Total distribution size: $([math]::Round($totalSize, 2)) MB"
         } else {
-          Write-Host "❌ Build failed - executable not found!"
+          Write-Host "❌ Build failed - distribution folder not found!"
           exit 1
         }
 
     - name: Create release package
       run: |
         New-Item -ItemType Directory -Force -Path release
-        Copy-Item "dist\medical_xray_analyzer.exe" "release\"
+        
+        # Copy entire standalone distribution
+        Copy-Item "dist\run.dist" "release\medical_xray_analyzer" -Recurse
+        
+        # Rename main executable
+        Move-Item "release\medical_xray_analyzer\run.exe" "release\medical_xray_analyzer\medical_xray_analyzer.exe"
+        
+        # Copy documentation
         Copy-Item "README.md" "release\" -ErrorAction SilentlyContinue
+        Copy-Item "BUILD_GUIDE.md" "release\" -ErrorAction SilentlyContinue
         Copy-Item "docs" "release\docs" -Recurse -ErrorAction SilentlyContinue
         
-        # Create a simple run script
+        # Create start script
         @"
         @echo off
-        echo Starting Medical X-ray Analyzer API Server...
+        echo ========================================
+        echo Medical X-ray Analyzer API Server
+        echo ========================================
+        echo.
+        cd medical_xray_analyzer
         medical_xray_analyzer.exe --host 0.0.0.0 --port 8000
         pause
         "@ | Out-File -FilePath "release\start_server.bat" -Encoding ASCII
+        
+        # Create README for release
+        @"
+        # Medical X-ray Analyzer - Windows Distribution
+        
+        ## Quick Start
+        
+        1. Double-click 'start_server.bat' to start the API server
+        2. Server will run on http://localhost:8000
+        3. API documentation: http://localhost:8000/docs
+        
+        ## Manual Start
+        
+        ```
+        cd medical_xray_analyzer
+        medical_xray_analyzer.exe --host 0.0.0.0 --port 8000
+        ```
+        
+        ## Options
+        
+        - --host: Host to bind (default: 0.0.0.0)
+        - --port: Port to bind (default: 8000)
+        - --reload: Enable auto-reload (dev mode)
+        
+        ## Requirements
+        
+        - Windows 10/11 (64-bit)
+        - No Python installation needed
+        - All dependencies included
+        
+        ## Documentation
+        
+        See BUILD_GUIDE.md and docs/ folder for more information.
+        "@ | Out-File -FilePath "release\README_WINDOWS.txt" -Encoding UTF8
 
     - name: Upload build artifact
       uses: actions/upload-artifact@v4
@@ -117,13 +173,39 @@ jobs:
         path: compilation-report.xml
         retention-days: 7
 
+    - name: Create ZIP archive for release
+      run: |
+        Compress-Archive -Path "release\*" -DestinationPath "medical-xray-analyzer-windows-x64.zip"
+        
+        # Show final size
+        $zipSize = (Get-Item "medical-xray-analyzer-windows-x64.zip").Length / 1MB
+        Write-Host "Final ZIP size: $([math]::Round($zipSize, 2)) MB"
+
     - name: Create GitHub Release (on tag)
       if: startsWith(github.ref, 'refs/tags/v')
       uses: softprops/action-gh-release@v1
       with:
-        files: |
-          release/medical_xray_analyzer.exe
-          release/start_server.bat
+        files: medical-xray-analyzer-windows-x64.zip
+        body: |
+          ## Medical X-ray Analyzer - Windows Release
+          
+          ### Installation
+          1. Download `medical-xray-analyzer-windows-x64.zip`
+          2. Extract to any folder
+          3. Run `start_server.bat`
+          
+          ### What's Included
+          - Standalone executable (no Python needed)
+          - All model weights
+          - API server
+          - Documentation
+          
+          ### System Requirements
+          - Windows 10/11 (64-bit)
+          - ~2GB disk space
+          - 4GB+ RAM recommended
+          
+          See README_WINDOWS.txt for detailed instructions.
         draft: false
         prerelease: false
       env:
