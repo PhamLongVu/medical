@@ -1,0 +1,56 @@
+{
+  "input_path": "/media/vbdi/ssd2t/Medical/dung/projects/vindr-xray/dataset/images/vin_png/1.2.276.0.7230010.3.0.3.5.1.11164526.2070518808.png",
+  "pipeline_stages": {
+    "stage1_conversion": {
+      "status": "skipped",
+      "input_type": "image",
+      "image_path": "/media/vbdi/ssd2t/Medical/dung/projects/vindr-xray/dataset/images/vin_png/1.2.276.0.7230010.3.0.3.5.1.11164526.2070518808.png",
+      "time_ms": 3.275156021118164
+    },
+    "stage2_binary_classification": {
+      "status": "success",
+      "result": {
+        "predicted_class": 0,
+        "class_name": "No Finding",
+        "confidence": 0.9947975873947144,
+        "probabilities": {
+          "No Finding": 0.9947975873947144,
+          "Abnormal": 0.0052023520693182945
+        }
+      },
+      "time_ms": 1246.1836338043213
+    },
+    "stage3_detection": {
+      "status": "success",
+      "detections": [],
+      "num_detections": 0,
+      "inference_time_ms": 218.69587898254395,
+      "total_time_ms": 793.9660549163818,
+      "visualization_path": "/home/vbdi/Documents/convnext-chexpert-attention/full_stream/outputs/1.2.276.0.7230010.3.0.3.5.1.11164526.2070518808/detection_result.png",
+      "result_folder": "/home/vbdi/Documents/convnext-chexpert-attention/full_stream/outputs/1.2.276.0.7230010.3.0.3.5.1.11164526.2070518808"
+    }
+  },
+  "final_result": {
+    "status": "no_finding",
+    "message": "No abnormalities detected, but detection was performed",
+    "binary_classification": {
+      "predicted_class": 0,
+      "class_name": "No Finding",
+      "confidence": 0.9947975873947144,
+      "probabilities": {
+        "No Finding": 0.9947975873947144,
+        "Abnormal": 0.0052023520693182945
+      }
+    },
+    "lesion_localization": {
+      "num_lesions": 0,
+      "detections": []
+    }
+  },
+  "total_pipeline_time_ms": 1575.6962299346924,
+  "result_folder": "/home/vbdi/Documents/convnext-chexpert-attention/full_stream/outputs/1.2.276.0.7230010.3.0.3.5.1.11164526.2070518808",
+  "output_files": {
+    "json": "/home/vbdi/Documents/convnext-chexpert-attention/full_stream/outputs/1.2.276.0.7230010.3.0.3.5.1.11164526.2070518808/results.json",
+    "visualization": null
+  }
+}

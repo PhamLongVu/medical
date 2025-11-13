@@ -1,0 +1,263 @@
+{
+  "input_path": "/media/vbdi/ssd2t/Medical/dung/projects/vindr-xray/dataset/images/vin_png/1.2.392.200036.9107.307.19802.20200225.164341.1070041.png",
+  "pipeline_stages": {
+    "stage1_conversion": {
+      "status": "skipped",
+      "input_type": "image",
+      "image_path": "/media/vbdi/ssd2t/Medical/dung/projects/vindr-xray/dataset/images/vin_png/1.2.392.200036.9107.307.19802.20200225.164341.1070041.png",
+      "time_ms": 0.00762939453125
+    },
+    "stage2_binary_classification": {
+      "status": "success",
+      "result": {
+        "predicted_class": 1,
+        "class_name": "Abnormal",
+        "confidence": 1.0,
+        "probabilities": {
+          "No Finding": 3.366130840731785e-08,
+          "Abnormal": 1.0
+        }
+      },
+      "time_ms": 816.9593811035156
+    },
+    "stage3_multilabel_classification": {
+      "status": "success",
+      "result": {
+        "positive_classes": [
+          {
+            "class": "Atelectasis",
+            "probability": 0.4870973825454712,
+            "threshold": 0.45
+          },
+          {
+            "class": "Cardiomegaly",
+            "probability": 0.4704951047897339,
+            "threshold": 0.45
+          },
+          {
+            "class": "Nodule/Mass",
+            "probability": 0.8179547786712646,
+            "threshold": 0.45
+          },
+          {
+            "class": "Opacity",
+            "probability": 0.4853830337524414,
+            "threshold": 0.45
+          },
+          {
+            "class": "Lung tumor",
+            "probability": 0.8337993621826172,
+            "threshold": 0.5
+          },
+          {
+            "class": "Other",
+            "probability": 0.5376729369163513,
+            "threshold": 0.45
+          }
+        ],
+        "all_probabilities": {
+          "Aortic enlargement": 0.34078744053840637,
+          "Atelectasis": 0.4870973825454712,
+          "Calcification": 0.24424026906490326,
+          "Cardiomegaly": 0.4704951047897339,
+          "Clavicle fracture": 0.13335904479026794,
+          "Consolidation": 0.30660825967788696,
+          "Edema": 0.04921216145157814,
+          "Emphysema": 0.20153073966503143,
+          "Enlarged PA": 0.31698277592658997,
+          "Infiltration": 0.27512794733047485,
+          "Interstitial lung disease - ILD": 0.41073083877563477,
+          "Lung cavity": 0.24869966506958008,
+          "Lung cyst": 0.1760835498571396,
+          "Mediastinal shift": 0.38553282618522644,
+          "Nodule/Mass": 0.8179547786712646,
+          "Opacity": 0.4853830337524414,
+          "Other lesion": 0.4341108202934265,
+          "Pleural effusion": 0.4265742301940918,
+          "Pleural thickening": 0.40585756301879883,
+          "Pneumothorax": 0.2763422727584839,
+          "Pulmonary fibrosis": 0.32171517610549927,
+          "Rib fracture": 0.16725805401802063,
+          "COPD": 0.11456600576639175,
+          "Cardiovascular disease": 0.33156919479370117,
+          "Lung tumor": 0.8337993621826172,
+          "Other": 0.5376729369163513,
+          "Pneumonia": 0.36099058389663696,
+          "Tuberculosis": 0.23081785440444946
+        },
+        "tuberculosis_detected": false
+      },
+      "time_ms": 1097.8889465332031
+    },
+    "stage4_detection": {
+      "status": "success",
+      "detections": [
+        {
+          "bbox": [
+            378.7811584472656,
+            594.2669067382812,
+            937.4535522460938,
+            1184.957275390625
+          ],
+          "confidence": 0.5698269605636597,
+          "class_id": 10,
+          "class_name": "Nodule_Mass"
+        },
+        {
+          "bbox": [
+            1201.9775390625,
+            775.0784912109375,
+            1399.647216796875,
+            1031.84033203125
+          ],
+          "confidence": 0.33880144357681274,
+          "class_id": 7,
+          "class_name": "Enlarged_PA"
+        },
+        {
+          "bbox": [
+            949.3282470703125,
+            496.9535827636719,
+            1195.5926513671875,
+            1251.64697265625
+          ],
+          "confidence": 0.1471906304359436,
+          "class_id": 12,
+          "class_name": "Other_lesion"
+        }
+      ],
+      "num_detections": 3,
+      "inference_time_ms": 190.1700496673584,
+      "total_time_ms": 750.190258026123,
+      "visualization_path": "/home/vbdi/Documents/convnext-chexpert-attention/full_stream/outputs/1.2.392.200036.9107.307.19802.20200225.164341.1070041/detection_result.png",
+      "result_folder": "/home/vbdi/Documents/convnext-chexpert-attention/full_stream/outputs/1.2.392.200036.9107.307.19802.20200225.164341.1070041"
+    },
+    "parallel_execution": {
+      "total_parallel_time_ms": 1217.3700332641602,
+      "sequential_time_estimate_ms": 1848.0792045593262,
+      "time_saved_ms": 630.709171295166,
+      "speedup_ratio": 1.5180915860102389
+    }
+  },
+  "final_result": {
+    "status": "abnormal",
+    "binary_classification": {
+      "predicted_class": 1,
+      "class_name": "Abnormal",
+      "confidence": 1.0,
+      "probabilities": {
+        "No Finding": 3.366130840731785e-08,
+        "Abnormal": 1.0
+      }
+    },
+    "diseases": {
+      "positive_classes": [
+        {
+          "class": "Atelectasis",
+          "probability": 0.4870973825454712,
+          "threshold": 0.45
+        },
+        {
+          "class": "Cardiomegaly",
+          "probability": 0.4704951047897339,
+          "threshold": 0.45
+        },
+        {
+          "class": "Nodule/Mass",
+          "probability": 0.8179547786712646,
+          "threshold": 0.45
+        },
+        {
+          "class": "Opacity",
+          "probability": 0.4853830337524414,
+          "threshold": 0.45
+        },
+        {
+          "class": "Lung tumor",
+          "probability": 0.8337993621826172,
+          "threshold": 0.5
+        },
+        {
+          "class": "Other",
+          "probability": 0.5376729369163513,
+          "threshold": 0.45
+        }
+      ],
+      "all_probabilities": {
+        "Aortic enlargement": 0.34078744053840637,
+        "Atelectasis": 0.4870973825454712,
+        "Calcification": 0.24424026906490326,
+        "Cardiomegaly": 0.4704951047897339,
+        "Clavicle fracture": 0.13335904479026794,
+        "Consolidation": 0.30660825967788696,
+        "Edema": 0.04921216145157814,
+        "Emphysema": 0.20153073966503143,
+        "Enlarged PA": 0.31698277592658997,
+        "Infiltration": 0.27512794733047485,
+        "Interstitial lung disease - ILD": 0.41073083877563477,
+        "Lung cavity": 0.24869966506958008,
+        "Lung cyst": 0.1760835498571396,
+        "Mediastinal shift": 0.38553282618522644,
+        "Nodule/Mass": 0.8179547786712646,
+        "Opacity": 0.4853830337524414,
+        "Other lesion": 0.4341108202934265,
+        "Pleural effusion": 0.4265742301940918,
+        "Pleural thickening": 0.40585756301879883,
+        "Pneumothorax": 0.2763422727584839,
+        "Pulmonary fibrosis": 0.32171517610549927,
+        "Rib fracture": 0.16725805401802063,
+        "COPD": 0.11456600576639175,
+        "Cardiovascular disease": 0.33156919479370117,
+        "Lung tumor": 0.8337993621826172,
+        "Other": 0.5376729369163513,
+        "Pneumonia": 0.36099058389663696,
+        "Tuberculosis": 0.23081785440444946
+      },
+      "tuberculosis_detected": false
+    },
+    "lesion_localization": {
+      "num_lesions": 3,
+      "detections": [
+        {
+          "bbox": [
+            378.7811584472656,
+            594.2669067382812,
+            937.4535522460938,
+            1184.957275390625
+          ],
+          "confidence": 0.5698269605636597,
+          "class_id": 10,
+          "class_name": "Nodule_Mass"
+        },
+        {
+          "bbox": [
+            1201.9775390625,
+            775.0784912109375,
+            1399.647216796875,
+            1031.84033203125
+          ],
+          "confidence": 0.33880144357681274,
+          "class_id": 7,
+          "class_name": "Enlarged_PA"
+        },
+        {
+          "bbox": [
+            949.3282470703125,
+            496.9535827636719,
+            1195.5926513671875,
+            1251.64697265625
+          ],
+          "confidence": 0.1471906304359436,
+          "class_id": 12,
+          "class_name": "Other_lesion"
+        }
+      ]
+    }
+  },
+  "total_pipeline_time_ms": 2161.6275310516357,
+  "result_folder": "/home/vbdi/Documents/convnext-chexpert-attention/full_stream/outputs/1.2.392.200036.9107.307.19802.20200225.164341.1070041",
+  "output_files": {
+    "json": "/home/vbdi/Documents/convnext-chexpert-attention/full_stream/outputs/1.2.392.200036.9107.307.19802.20200225.164341.1070041/results.json",
+    "visualization": "/home/vbdi/Documents/convnext-chexpert-attention/full_stream/outputs/1.2.392.200036.9107.307.19802.20200225.164341.1070041/detection_result.png"
+  }
+}

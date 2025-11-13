@@ -1,0 +1,80 @@
+{
+  "input_path": "/media/vbdi/ssd2t/Medical/dung/projects/vindr-xray/dataset/images/vin_png/1.2.392.200046.100.2.1.1.157685.20200716140330.1.1.1.png",
+  "pipeline_stages": {
+    "stage1_conversion": {
+      "status": "skipped",
+      "input_type": "image",
+      "image_path": "/media/vbdi/ssd2t/Medical/dung/projects/vindr-xray/dataset/images/vin_png/1.2.392.200046.100.2.1.1.157685.20200716140330.1.1.1.png",
+      "time_ms": 3.6573410034179688
+    },
+    "stage2_binary_classification": {
+      "status": "success",
+      "result": {
+        "predicted_class": 0,
+        "class_name": "No Finding",
+        "confidence": 0.8843218684196472,
+        "probabilities": {
+          "No Finding": 0.8843218684196472,
+          "Abnormal": 0.11567816138267517
+        }
+      },
+      "time_ms": 1242.5284385681152
+    },
+    "stage3_detection": {
+      "status": "success",
+      "detections": [
+        {
+          "bbox": [
+            760.615966796875,
+            940.0709228515625,
+            1703.333740234375,
+            1612.385986328125
+          ],
+          "confidence": 0.2701610326766968,
+          "class_id": 3,
+          "class_name": "Cardiomegaly"
+        }
+      ],
+      "num_detections": 1,
+      "inference_time_ms": 221.4815616607666,
+      "total_time_ms": 1139.7004127502441,
+      "visualization_path": "/home/vbdi/Documents/convnext-chexpert-attention/full_stream/outputs/1.2.392.200046.100.2.1.1.157685.20200716140330.1.1.1/detection_result.png",
+      "result_folder": "/home/vbdi/Documents/convnext-chexpert-attention/full_stream/outputs/1.2.392.200046.100.2.1.1.157685.20200716140330.1.1.1"
+    }
+  },
+  "final_result": {
+    "status": "no_finding",
+    "message": "No abnormalities detected, but detection was performed",
+    "binary_classification": {
+      "predicted_class": 0,
+      "class_name": "No Finding",
+      "confidence": 0.8843218684196472,
+      "probabilities": {
+        "No Finding": 0.8843218684196472,
+        "Abnormal": 0.11567816138267517
+      }
+    },
+    "lesion_localization": {
+      "num_lesions": 1,
+      "detections": [
+        {
+          "bbox": [
+            760.615966796875,
+            940.0709228515625,
+            1703.333740234375,
+            1612.385986328125
+          ],
+          "confidence": 0.2701610326766968,
+          "class_id": 3,
+          "class_name": "Cardiomegaly"
+        }
+      ]
+    }
+  },
+  "total_pipeline_time_ms": 1490.1690483093262,
+  "result_folder": "/home/vbdi/Documents/convnext-chexpert-attention/full_stream/outputs/1.2.392.200046.100.2.1.1.157685.20200716140330.1.1.1",
+  "output_files": {
+    "json": "/home/vbdi/Documents/convnext-chexpert-attention/full_stream/outputs/1.2.392.200046.100.2.1.1.157685.20200716140330.1.1.1/results.json",
+    "visualization": null
+  }
+}

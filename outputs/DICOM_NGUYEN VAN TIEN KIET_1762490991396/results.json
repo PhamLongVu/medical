@@ -1,0 +1,43 @@
+{
+  "input_path": "/home/vbdi/Documents/convnext-chexpert-attention/full_stream/dicom_test/DICOM_NGUYEN VAN TIEN KIET_1762490991396.dcm",
+  "pipeline_stages": {
+    "stage1_conversion": {
+      "status": "success",
+      "input_type": "dicom",
+      "png_path": "/home/vbdi/Documents/convnext-chexpert-attention/full_stream/img_convert/1.2.840.113564.54.192.168.56.1.12284.20251107114537472.png",
+      "time_ms": 161.96465492248535
+    },
+    "stage2_binary_classification": {
+      "status": "success",
+      "result": {
+        "predicted_class": 0,
+        "class_name": "No Finding",
+        "confidence": 0.8222036361694336,
+        "probabilities": {
+          "No Finding": 0.8222036361694336,
+          "Abnormal": 0.1777963638305664
+        }
+      },
+      "time_ms": 796.9808578491211
+    }
+  },
+  "final_result": {
+    "status": "no_finding",
+    "message": "No abnormalities detected",
+    "binary_classification": {
+      "predicted_class": 0,
+      "class_name": "No Finding",
+      "confidence": 0.8222036361694336,
+      "probabilities": {
+        "No Finding": 0.8222036361694336,
+        "Abnormal": 0.1777963638305664
+      }
+    }
+  },
+  "total_pipeline_time_ms": 981.4043045043945,
+  "result_folder": "/home/vbdi/Documents/convnext-chexpert-attention/full_stream/outputs/DICOM_NGUYEN VAN TIEN KIET_1762490991396",
+  "output_files": {
+    "json": "/home/vbdi/Documents/convnext-chexpert-attention/full_stream/outputs/DICOM_NGUYEN VAN TIEN KIET_1762490991396/results.json",
+    "visualization": null
+  }
+}

@@ -1,0 +1,185 @@
+{
+  "input_path": "/media/vbdi/ssd2t/Medical/dung/projects/vindr-xray/dataset/images/vin_png/1.2.410.200049.2.1.100.4000094.3.1.20181117091754000.png",
+  "pipeline_stages": {
+    "stage1_conversion": {
+      "status": "skipped",
+      "input_type": "image",
+      "image_path": "/media/vbdi/ssd2t/Medical/dung/projects/vindr-xray/dataset/images/vin_png/1.2.410.200049.2.1.100.4000094.3.1.20181117091754000.png",
+      "time_ms": 0.007152557373046875
+    },
+    "stage2_binary_classification": {
+      "status": "success",
+      "result": {
+        "predicted_class": 1,
+        "class_name": "Abnormal",
+        "confidence": 0.9311342239379883,
+        "probabilities": {
+          "No Finding": 0.06886575371026993,
+          "Abnormal": 0.9311342239379883
+        }
+      },
+      "time_ms": 1457.7844142913818
+    },
+    "stage3_detection": {
+      "status": "success",
+      "detections": [
+        {
+          "bbox": [
+            1565.7037353515625,
+            845.980224609375,
+            1715.875732421875,
+            1029.3414306640625
+          ],
+          "confidence": 0.2133086621761322,
+          "class_id": 2,
+          "class_name": "Calcification"
+        },
+        {
+          "bbox": [
+            619.5255126953125,
+            201.26910400390625,
+            1267.8087158203125,
+            673.9786987304688
+          ],
+          "confidence": 0.21122238039970398,
+          "class_id": 14,
+          "class_name": "Pleural_thickening"
+        }
+      ],
+      "num_detections": 2,
+      "inference_time_ms": 325.3293037414551,
+      "total_time_ms": 948.1439590454102,
+      "visualization_path": "/home/vbdi/Documents/convnext-chexpert-attention/full_stream/outputs/1.2.410.200049.2.1.100.4000094.3.1.20181117091754000/detection_result.png",
+      "result_folder": "/home/vbdi/Documents/convnext-chexpert-attention/full_stream/outputs/1.2.410.200049.2.1.100.4000094.3.1.20181117091754000"
+    },
+    "stage4_multilabel_classification": {
+      "status": "success",
+      "result": {
+        "positive_classes": [
+          {
+            "class": "Tuberculosis",
+            "probability": 0.6432806253433228,
+            "threshold": 0.45
+          }
+        ],
+        "all_probabilities": {
+          "Aortic enlargement": 0.37629252672195435,
+          "Atelectasis": 0.4408423900604248,
+          "Calcification": 0.4883233606815338,
+          "Cardiomegaly": 0.23794256150722504,
+          "Clavicle fracture": 0.19402609765529633,
+          "Consolidation": 0.2536551058292389,
+          "Edema": 0.0438452884554863,
+          "Emphysema": 0.34344199299812317,
+          "Enlarged PA": 0.19784477353096008,
+          "Infiltration": 0.3872649371623993,
+          "Interstitial lung disease - ILD": 0.44703012704849243,
+          "Lung cavity": 0.21799331903457642,
+          "Lung cyst": 0.25375717878341675,
+          "Mediastinal shift": 0.38892701268196106,
+          "Nodule/Mass": 0.391491562128067,
+          "Opacity": 0.4354621171951294,
+          "Other lesion": 0.3982466161251068,
+          "Pleural effusion": 0.24404989182949066,
+          "Pleural thickening": 0.589885950088501,
+          "Pneumothorax": 0.12516601383686066,
+          "Pulmonary fibrosis": 0.6899805068969727,
+          "Rib fracture": 0.24135778844356537,
+          "COPD": 0.2577974200248718,
+          "Cardiovascular disease": 0.19546514749526978,
+          "Lung tumor": 0.24145199358463287,
+          "Other": 0.6456807255744934,
+          "Pneumonia": 0.33037057518959045,
+          "Tuberculosis": 0.6432806253433228
+        },
+        "tuberculosis_detected": true
+      },
+      "time_ms": 805.142879486084
+    }
+  },
+  "final_result": {
+    "status": "abnormal",
+    "binary_classification": {
+      "predicted_class": 1,
+      "class_name": "Abnormal",
+      "confidence": 0.9311342239379883,
+      "probabilities": {
+        "No Finding": 0.06886575371026993,
+        "Abnormal": 0.9311342239379883
+      }
+    },
+    "diseases": {
+      "positive_classes": [
+        {
+          "class": "Tuberculosis",
+          "probability": 0.6432806253433228,
+          "threshold": 0.45
+        }
+      ],
+      "all_probabilities": {
+        "Aortic enlargement": 0.37629252672195435,
+        "Atelectasis": 0.4408423900604248,
+        "Calcification": 0.4883233606815338,
+        "Cardiomegaly": 0.23794256150722504,
+        "Clavicle fracture": 0.19402609765529633,
+        "Consolidation": 0.2536551058292389,
+        "Edema": 0.0438452884554863,
+        "Emphysema": 0.34344199299812317,
+        "Enlarged PA": 0.19784477353096008,
+        "Infiltration": 0.3872649371623993,
+        "Interstitial lung disease - ILD": 0.44703012704849243,
+        "Lung cavity": 0.21799331903457642,
+        "Lung cyst": 0.25375717878341675,
+        "Mediastinal shift": 0.38892701268196106,
+        "Nodule/Mass": 0.391491562128067,
+        "Opacity": 0.4354621171951294,
+        "Other lesion": 0.3982466161251068,
+        "Pleural effusion": 0.24404989182949066,
+        "Pleural thickening": 0.589885950088501,
+        "Pneumothorax": 0.12516601383686066,
+        "Pulmonary fibrosis": 0.6899805068969727,
+        "Rib fracture": 0.24135778844356537,
+        "COPD": 0.2577974200248718,
+        "Cardiovascular disease": 0.19546514749526978,
+        "Lung tumor": 0.24145199358463287,
+        "Other": 0.6456807255744934,
+        "Pneumonia": 0.33037057518959045,
+        "Tuberculosis": 0.6432806253433228
+      },
+      "tuberculosis_detected": true
+    },
+    "lesion_localization": {
+      "num_lesions": 2,
+      "detections": [
+        {
+          "bbox": [
+            1565.7037353515625,
+            845.980224609375,
+            1715.875732421875,
+            1029.3414306640625
+          ],
+          "confidence": 0.2133086621761322,
+          "class_id": 2,
+          "class_name": "Calcification"
+        },
+        {
+          "bbox": [
+            619.5255126953125,
+            201.26910400390625,
+            1267.8087158203125,
+            673.9786987304688
+          ],
+          "confidence": 0.21122238039970398,
+          "class_id": 14,
+          "class_name": "Pleural_thickening"
+        }
+      ]
+    }
+  },
+  "total_pipeline_time_ms": 2562.663793563843,
+  "result_folder": "/home/vbdi/Documents/convnext-chexpert-attention/full_stream/outputs/1.2.410.200049.2.1.100.4000094.3.1.20181117091754000",
+  "output_files": {
+    "json": "/home/vbdi/Documents/convnext-chexpert-attention/full_stream/outputs/1.2.410.200049.2.1.100.4000094.3.1.20181117091754000/results.json",
+    "visualization": null
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "aaa3cb25ab9605da92205e896b639d54a793ba9e9f6b8fcbcbba21f79ceed7fb": {
+    "name": "Test Client",
+    "created_at": "2025-11-11T12:06:32.336826",
+    "expires_at": "2026-02-09T12:06:32.336826",
+    "active": true,
+    "metadata": {}
+  },
+  "1d9a9cfa176a942fb00c3f56a74938a4525edc1233e078495e9868637a0158f9": {
+    "name": "hihi",
+    "created_at": "2025-11-11T12:10:52.390752",
+    "expires_at": "2026-02-09T12:10:52.390752",
+    "active": true,
+    "metadata": {}
+  },
+  "50d23d1627496f11e0964b56d61ac5d74855117d4fd4a3d82d77b8c578ebd132": {
+    "name": "Test User",
+    "created_at": "2025-11-11T12:16:40.624899",
+    "expires_at": "2026-02-09T12:16:40.624899",
+    "active": true,
+    "metadata": {}
+  },
+  "60b080046dd0f628724404794374fb0966b100833c5fbcec62e3c7e1363ff93c": {
+    "name": "New Client",
+    "created_at": "2025-11-11T12:18:46.198311",
+    "expires_at": "2026-02-09T12:18:46.198311",
+    "active": true,
+    "metadata": {}
+  },
+  "5be28df6ba33f42a87881c855db62ba738a32a2153367098f8ec94399dd6ee94": {
+    "name": "Admin Test Client",
+    "created_at": "2025-11-11T12:21:24.992324",
+    "expires_at": "2026-02-09T12:21:24.992324",
+    "active": true,
+    "metadata": {}
+  }
+}
