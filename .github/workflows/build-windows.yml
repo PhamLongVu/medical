@@ -1,0 +1,130 @@
+name: Build Windows EXE with Nuitka
+
+on:
+  push:
+    branches: [ "main" ]
+    tags:
+      - 'v*'
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Full history for proper versioning
+
+    - name: Setup Python 3.10
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.10"
+        cache: 'pip'
+
+    - name: Install system dependencies
+      run: |
+        choco install visualstudio2022buildtools --package-parameters "--add Microsoft.VisualStudio.Workload.VCTools --includeRecommended --includeOptional --passive --norestart"
+      continue-on-error: true
+
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip setuptools wheel
+        pip install nuitka ordered-set zstandard
+        pip install -r requirements.txt
+      env:
+        PIP_NO_CACHE_DIR: false
+
+    - name: Verify weights directory
+      run: |
+        if (Test-Path "weights") {
+          Write-Host "✓ Weights directory found"
+          Get-ChildItem -Path weights -Recurse -File | Select-Object FullName
+        } else {
+          Write-Host "❌ Weights directory not found!"
+          exit 1
+        }
+
+    - name: Build EXE with Nuitka
+      run: |
+        python -m nuitka `
+          --standalone `
+          --onefile `
+          --windows-console-mode=force `
+          --assume-yes-for-downloads `
+          --enable-plugin=numpy `
+          --include-package=onnxruntime `
+          --include-package=PIL `
+          --include-package=cv2 `
+          --include-package=pydicom `
+          --include-package=fastapi `
+          --include-package=uvicorn `
+          --include-package=torchvision `
+          --include-data-dir=weights=weights `
+          --include-data-dir=src=src `
+          --include-data-files=data/api_keys.json=data/api_keys.json `
+          --include-data-files=data/admin_vault.json=data/admin_vault.json `
+          --output-dir=dist `
+          --output-filename=medical_xray_analyzer.exe `
+          --show-progress `
+          --show-memory `
+          --report=compilation-report.xml `
+          run.py
+      env:
+        NUITKA_CACHE_DIR: ${{ github.workspace }}\.nuitka_cache
+
+    - name: Verify build output
+      run: |
+        if (Test-Path "dist\medical_xray_analyzer.exe") {
+          Write-Host "✓ Build successful!"
+          $size = (Get-Item "dist\medical_xray_analyzer.exe").Length / 1MB
+          Write-Host "Executable size: $([math]::Round($size, 2)) MB"
+        } else {
+          Write-Host "❌ Build failed - executable not found!"
+          exit 1
+        }
+
+    - name: Create release package
+      run: |
+        New-Item -ItemType Directory -Force -Path release
+        Copy-Item "dist\medical_xray_analyzer.exe" "release\"
+        Copy-Item "README.md" "release\" -ErrorAction SilentlyContinue
+        Copy-Item "docs" "release\docs" -Recurse -ErrorAction SilentlyContinue
+        
+        # Create a simple run script
+        @"
+        @echo off
+        echo Starting Medical X-ray Analyzer API Server...
+        medical_xray_analyzer.exe --host 0.0.0.0 --port 8000
+        pause
+        "@ | Out-File -FilePath "release\start_server.bat" -Encoding ASCII
+
+    - name: Upload build artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: medical-xray-analyzer-windows-x64
+        path: release/
+        retention-days: 30
+
+    - name: Upload compilation report
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: compilation-report
+        path: compilation-report.xml
+        retention-days: 7
+
+    - name: Create GitHub Release (on tag)
+      if: startsWith(github.ref, 'refs/tags/v')
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          release/medical_xray_analyzer.exe
+          release/start_server.bat
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
